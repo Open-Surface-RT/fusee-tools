@@ -1,0 +1,3 @@
+[submodule "fusee-launcher-new"]
+	path = fusee-launcher-new
+	url = https://github.com/Open-Surface-RT/fusee-launcher-new
