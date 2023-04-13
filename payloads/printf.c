@@ -34,6 +34,7 @@
  */
 
 #include "tegra_uart.h"
+#include "printf.h"
 
 extern void lock_mutex(void* mutex);
 extern void unlock_mutex(void* mutex);
@@ -41,23 +42,7 @@ extern void unlock_mutex(void* mutex);
 #define putchar putc
 //void putc(int c, void *stream);
 
-typedef unsigned long size_t;
-typedef long ssize_t;
-#ifdef __64BIT__
-typedef unsigned long long uintmax_t;
-typedef long long intmax_t;
-#else
-typedef unsigned int uintmax_t;
-typedef int intmax_t;
-#endif
-typedef unsigned char u_char;
-typedef unsigned int u_int;
-typedef unsigned long u_long;
-typedef unsigned short u_short;
-typedef unsigned long long u_quad_t;
-typedef long long quad_t;
-typedef unsigned long uintptr_t;
-typedef long ptrdiff_t;
+
 #define NULL ((void*)0)
 #define NBBY    8               /* number of bits in a byte */
 char const hex2ascii_data[] = "0123456789abcdefghijklmnopqrstuvwxyz";
@@ -67,7 +52,7 @@ char const hex2ascii_data[] = "0123456789abcdefghijklmnopqrstuvwxyz";
 #define va_arg __builtin_va_arg
 #define va_end __builtin_va_end
 #define toupper(c)      ((c) - 0x20 * (((c) >= 'a') && ((c) <= 'z')))
-static size_t
+size_t
 strlen(const char *s)
 {
 	size_t l = 0;

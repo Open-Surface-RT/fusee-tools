@@ -2,8 +2,6 @@
 #include "common.h"
 
 
-#define T114
-
 #if defined(T30)
     #define BOOTROM_START_POST_IPATCH	0xfff01004
     #define IROM_PATCH_ADDRESS			0xfff01CD4
@@ -14,7 +12,7 @@
 
 // Common
 #define DESIRED_SECURITY_MODE		3
-#define IPATCH_SLOT					1 // maybe overwrite already present ipatches 
+#define IPATCH_SLOT					0 // maybe overwrite already present ipatches
 
 /* ipatch hardware */
 #define IPATCH_BASE					(0x6001dc00)
@@ -56,5 +54,6 @@ void ipatch_word(uint8_t slot, uint32_t addr, uint16_t new_value)
 	reg_write(IPATCH_BASE, IPATCH_REGS + (slot * 4), slot_value);
 
 	// Apply the new one.
-	reg_set(IPATCH_BASE, IPATCH_SELECT, (1 << slot));
+	// Disable all other ipatches. Not sure if this is good. Could cause warmboot related problems
+	reg_write(IPATCH_BASE, IPATCH_SELECT, (1 << slot));
 }
